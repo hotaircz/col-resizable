@@ -8,8 +8,8 @@ module.exports = function(grunt) {
       dist: {
           files: [
                 {
-                    src: ["colResizable-1.6.js"],
-                    dest: "colResizable-1.6.min.js"
+                    src: ["col-resizable.js"],
+                    dest: "col-resizable.min.js"
                 }
           ]
       },

@@ -345,30 +345,31 @@
 	 * table layout according to the browser's size synchronizing related grips
 	 */
 	var onResize = function(){
-		for(var t in tables){
-            if( tables.hasOwnProperty( t ) ) {
-                t = tables[t];
-                var i, mw=0;
-                t.removeClass(SIGNATURE);   //firefox doesn't like layout-fixed in some cases
-                if (t.f) {                  //in fixed mode
-                    t.w = t.width();        //its new width is kept
-                    for(i=0; i<t.ln; i++) mw+= t.c[i].w;		
-                    //cell rendering is not as trivial as it might seem, and it is slightly different for
-                    //each browser. In the beginning i had a big switch for each browser, but since the code
-                    //was extremely ugly now I use a different approach with several re-flows. This works 
-                    //pretty well but it's a bit slower. For now, lets keep things simple...   
-                    for(i=0; i<t.ln; i++) t.c[i].css("width", M.round(1000*t.c[i].w/mw)/10 + "%").l=true; 
-                    //c.l locks the column, telling us that its c.w is outdated									
-                }else{     //in non fixed-sized tables
-                    applyBounds(t);         //apply the new bounds 
-                    if(t.mode == 'flex' && t.p && S){   //if postbackSafe is enabled and there is sessionStorage support,
-                        memento(t);                     //the new layout is serialized and stored for 'flex' tables
-                    }
-                }
-                syncGrips(t.addClass(SIGNATURE));
-            }
+		if ($(e.target).is('Window')) {
+			for (var t in tables) {
+				if (tables.hasOwnProperty(t)) {
+					t = tables[t];
+					var i, mw = 0;
+					t.removeClass(SIGNATURE);   //firefox doesn't like layout-fixed in some cases
+					if (t.f) {                  //in fixed mode
+						t.w = t.width();        //its new width is kept
+						for (i = 0; i < t.ln; i++) mw += t.c[i].w;
+						//cell rendering is not as trivial as it might seem, and it is slightly different for
+						//each browser. In the beginning i had a big switch for each browser, but since the code
+						//was extremely ugly now I use a different approach with several re-flows. This works
+						//pretty well but it's a bit slower. For now, lets keep things simple...
+						for (i = 0; i < t.ln; i++) t.c[i].css("width", M.round(1000 * t.c[i].w / mw) / 10 + "%").l = true;
+						//c.l locks the column, telling us that its c.w is outdated
+					} else {     //in non fixed-sized tables
+						applyBounds(t);         //apply the new bounds
+						if (t.mode == 'flex' && t.p && S) {   //if postbackSafe is enabled and there is sessionStorage support,
+							memento(t);                     //the new layout is serialized and stored for 'flex' tables
+						}
+					}
+					syncGrips(t.addClass(SIGNATURE));
+				}
+			}
 		}
-
 	};
 
 

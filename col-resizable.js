@@ -344,7 +344,7 @@
 	 * Event handler fired when the browser is resized. The main purpose of this function is to update
 	 * table layout according to the browser's size synchronizing related grips
 	 */
-	var onResize = function(){
+	var onResize = function(e){
 		if ($(e.target).is('Window')) {
 			for (var t in tables) {
 				if (tables.hasOwnProperty(t)) {
